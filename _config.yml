@@ -1,0 +1,9 @@
+# GitHub Pages: questi file restano nel repository ma non vengono pubblicati
+exclude:
+  - DIREZIONE.md
+  - credits.md
+  - FOTO-DA-SCATTARE.md
+  - README.md
+  - _design.md
+  - _strumenti
+  - _controllo
