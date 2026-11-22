@@ -537,7 +537,7 @@ html[data-momento="aperitivo"] [data-parola="aperitivo"] { transform: translate3
    g) SUI SOCIAL
    ===================================================================== */
 .social__testa { display: grid; gap: 28px; margin-bottom: clamp(40px, 5vw, 64px); }
-.social__btn { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.social__btn { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 8px; }
 .social__btn .btn { padding-inline: 8px; }
 @media (min-width: 600px) { .social__btn { display: flex; gap: 10px; } .social__btn .btn { padding-inline: 18px; } }
 @media (min-width: 1024px) { .social__testa { grid-template-columns: 1fr auto; align-items: end; } }

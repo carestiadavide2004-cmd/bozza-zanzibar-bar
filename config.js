@@ -53,9 +53,9 @@ window.SITO = {
   momenti: { colazione: '05:00', pranzo: '11:00', aperitivo: '15:30' },
 
   social: {
-    instagram: 'https://www.instagram.com/', // DA CONFERMARE (link della pagina del bar)
-    tiktok: 'https://www.tiktok.com/',       // DA CONFERMARE
-    facebook: 'https://www.facebook.com/',   // DA CONFERMARE
+    instagram: 'https://www.instagram.com/zanzibar_torre/',
+    tiktok: '',       // DA CONFERMARE: link non ancora disponibile (vuoto = pulsante nascosto)
+    facebook: 'https://www.facebook.com/zanzibarpub/',
   },
 
   // Dati legali (footer e privacy)
