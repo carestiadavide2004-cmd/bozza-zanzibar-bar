@@ -301,7 +301,7 @@ html[data-momento="aperitivo"] .hero__slide[data-slide="aperitivo"] img { transf
 
 .hero__velo {
   position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(180deg, rgba(13, 11, 10, .74) 0%, rgba(13, 11, 10, .44) 27%, rgba(13, 11, 10, .1) 48%, rgba(13, 11, 10, .08) 58%, rgba(13, 11, 10, .42) 76%, rgba(13, 11, 10, .8) 100%);
+  background: linear-gradient(180deg, rgba(13, 11, 10, .74) 0%, rgba(13, 11, 10, .44) 27%, rgba(13, 11, 10, .1) 48%, rgba(13, 11, 10, .1) 56%, rgba(13, 11, 10, .5) 72%, rgba(13, 11, 10, .72) 86%, rgba(13, 11, 10, .86) 100%);
 }
 .hero__testa { position: absolute; left: 0; right: 0; top: calc(var(--hd-h) + clamp(4px, 2.4vh, 36px)); text-align: center; }
 .hero__nome { font: 400 20.5vw/.9 var(--f-titoli); letter-spacing: -.022em; text-shadow: 0 2px 30px rgba(0, 0, 0, .25); }
@@ -325,6 +325,23 @@ html[data-momento="aperitivo"] [data-parola="aperitivo"] { transform: translate3
 .hero .stato { font-size: 14px; color: rgba(251, 247, 240, .92); }
 .hero__azioni { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 6px; width: 100%; }
 .hero__azioni .btn { flex: 1 1 auto; max-width: 280px; padding: 0 16px; }
+/* riga contatti della hero: telefono · WhatsApp · Instagram · Facebook */
+.hero__contatti { display: flex; align-items: center; justify-content: center; gap: 4px 10px; margin-top: 2px; }
+.hero__tel {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px;
+  font: 500 13.5px/1 var(--f-testo); letter-spacing: .09em; font-variant-numeric: tabular-nums; white-space: nowrap;
+  color: var(--carta); text-decoration: none; opacity: .85; text-shadow: 0 1px 14px rgba(0, 0, 0, .55);
+  transition: opacity .35s var(--ease);
+}
+.hero__punto { width: 3px; height: 3px; border-radius: 50%; background: rgba(251, 247, 240, .6); flex: none; }
+.hero__icone { display: flex; align-items: center; gap: 2px; }
+.hero__icona { display: grid; place-items: center; width: 44px; height: 44px; color: var(--carta); opacity: .85; transition: opacity .35s var(--ease); }
+.hero__icona svg { width: 21px; height: 21px; filter: drop-shadow(0 1px 8px rgba(0, 0, 0, .45)); }
+.hero__tel:hover, .hero__tel:focus-visible, .hero__icona:hover, .hero__icona:focus-visible { opacity: 1; }
+@media (max-width: 359px) {
+  .hero__contatti { flex-direction: column; gap: 0; }
+  .hero__punto { display: none; }
+}
 .hero__scorri {
   display: inline-flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 4px;
   font: 600 11px/1 var(--f-testo); letter-spacing: .26em; text-transform: uppercase; text-decoration: none; color: rgba(251, 247, 240, .78);
@@ -665,6 +682,7 @@ html[data-momento="aperitivo"] [data-parola="aperitivo"] { transform: translate3
 .js:not(.no-anim) [data-entra],
 .js:not(.no-anim) [data-rivela] { opacity: 0; }
 .js:not(.no-anim) .hero__parola { opacity: 0; }
+.js:not(.no-anim) .hero__contatti > * { opacity: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   .hero__slide img { transition: none; transform: none !important; }
@@ -672,6 +690,7 @@ html[data-momento="aperitivo"] [data-parola="aperitivo"] { transform: translate3
   .cielo__l { transition-duration: .5s; }
   .hero__scorri i, .stato.is-aperto .stato__punto::after { animation: none; }
   .hero__scorri i { transform: none; }
+  .hero__contatti { animation: dissolvi .8s ease .2s both; }
   .menu__f, .menu-carta, .btn::before, .piatti__foto img, .striscia__btn img { transition: none; }
 }
 
@@ -689,3 +708,5 @@ html[data-momento="aperitivo"] [data-parola="aperitivo"] { transform: translate3
 @media (max-width: 767px) {
   .hero__dove { font-size: 13.5px; letter-spacing: .02em; text-transform: none; font-weight: 600; }
 }
+
+@keyframes dissolvi { from { opacity: 0; } to { opacity: 1; } }

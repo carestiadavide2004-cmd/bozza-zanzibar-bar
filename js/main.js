@@ -118,6 +118,7 @@
     $$('[data-h]').forEach(el => { const v = prendi(el.dataset.h); if (v != null) el.innerHTML = enfasi(v); });
     $$('[data-indirizzo]').forEach(el => { el.textContent = indirizzo(); });
     $$('[data-anno]').forEach(el => { el.textContent = new Date().getFullYear(); });
+    $$('[data-tel-label]').forEach(a => a.setAttribute('aria-label', `Chiama ${S.nome || 'Zanzibar'} al ${C.telefono || ''}`));
     $$('[data-link]').forEach(a => {
       const t = a.dataset.link;
       // social: link veri da config.js; se il link è vuoto il pulsante non compare
@@ -282,7 +283,10 @@
         .set('.hero__parola', { opacity: 1 }, 0.5)
         .fromTo(attiva, { yPercent: 110 }, { yPercent: 0, duration: 0.85, clearProps: 'transform' }, 0.5)
         .fromTo('[data-entra]', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.75, stagger: 0.07, clearProps: 'transform' }, 0.62)
-        .fromTo('.hd__nav', { opacity: 0 }, { opacity: 1, duration: 0.7 }, 0.8);
+        .fromTo('.hd__nav', { opacity: 0 }, { opacity: 1, duration: 0.7 }, 0.8)
+        // per ultima la riga dei contatti: prima il numero, poi le icone una dopo l'altra
+        .fromTo('.hero__contatti > .hero__tel, .hero__contatti > .hero__punto, .hero__icone > li:not([hidden])', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.09, ease: 'power3.out', clearProps: 'transform' }, 1.05)
+        .set('.hero__icone', { opacity: 1 }, 1.05);
     };
     // parte quando la foto del momento e i font sono pronti (al massimo dopo 1,3 s)
     const foto = $(`.hero__slide[data-slide="${H.dataset.momento}"] img`, el);
