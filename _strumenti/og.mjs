@@ -1,4 +1,4 @@
-// Anteprima social og.jpg (1200x630) e icone del sito.
+// Anteprima social og.jpg (1200x630) con il logo.
 // Uso: node _strumenti/og.mjs   (serve Playwright, già installato in ~/.carestia-qa)
 import { createRequire } from 'node:module';
 import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
@@ -28,26 +28,17 @@ const apri = async (nome, html) => {
 
 await apri('og', `<!doctype html><meta charset="utf-8"><style>${font}
 *{margin:0;box-sizing:border-box}body{width:1200px;height:630px;overflow:hidden;background:#15120F;position:relative}
-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 62%}
-.o{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,11,10,.72),rgba(13,11,10,.3) 46%,rgba(13,11,10,.1) 62%,rgba(13,11,10,.62))}
-h1{position:absolute;left:0;right:0;top:44px;text-align:center;color:#FBF7F0;font:400 178px/1 B;letter-spacing:-.015em}
-h2{position:absolute;left:0;right:0;top:236px;text-align:center;color:#E8BD6E;font:italic 400 40px/1 BI}
-p{position:absolute;left:0;right:0;bottom:50px;text-align:center;color:#FBF7F0;font:600 17px/1 M;letter-spacing:.28em;text-transform:uppercase}
-p::before,p::after{content:"";display:inline-block;width:40px;height:1px;background:#E8BD6E;vertical-align:middle;margin:0 18px}
-</style><img src="${f('assets/img/hero-colazione-1920.webp')}"><div class="o"></div>
-<h1>${S.nome}</h1><h2>Colazione · Pausa pranzo · Aperitivo</h2><p>${S.tipo} · ${S.contatti.citta}</p>
-<script>document.fonts.ready.then(()=>document.body.dataset.ok=1)</script>`);
+.f{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 62%}
+.o{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,11,10,.8),rgba(13,11,10,.62) 55%,rgba(13,11,10,.78))}
+.l{position:absolute;left:50%;top:52px;width:520px;transform:translateX(-50%);filter:drop-shadow(0 2px 20px rgba(0,0,0,.5))}
+h2{position:absolute;left:0;right:0;top:400px;text-align:center;color:#E8BD6E;font:italic 400 36px/1 BI}
+p{position:absolute;left:0;right:0;bottom:56px;text-align:center;color:#FBF7F0;font:600 16px/1 M;letter-spacing:.28em;text-transform:uppercase}
+p::before,p::after{content:"";display:inline-block;width:40px;height:1px;background:#C7472E;vertical-align:middle;margin:0 18px}
+</style><img class="f" src="${f('assets/img/hero-aperitivo-1920.webp')}"><div class="o"></div>
+<img class="l" src="${f('assets/logo/logo-completo-1440.webp')}">
+<h2>Colazione · Pausa pranzo · Aperitivo cenato</h2><p>Di fronte alla stazione · ${S.contatti.citta}</p>
+<script>Promise.all([document.fonts.ready,...[...document.images].map(i=>i.decode())]).then(()=>document.body.dataset.ok=1)</script>`);
 await page.screenshot({ path: join(ROOT, 'og.jpg'), type: 'jpeg', quality: 86 });
 console.log('og.jpg');
-
-// icone: "Z" in Bodoni avorio su terracotta (il catering usa l'inchiostro: stessa famiglia, più calda)
-for (const [size, nome] of [[32, 'favicon-32.png'], [192, 'favicon-192.png'], [180, 'apple-touch-icon.png']]) {
-  await page.setViewportSize({ width: size, height: size });
-  const r = nome.startsWith('apple') ? 0 : Math.round(size * 0.18);
-  await apri(nome, `<!doctype html><meta charset="utf-8"><style>${font}*{margin:0}html,body{width:${size}px;height:${size}px;background:transparent}
-  div{width:${size}px;height:${size}px;border-radius:${r}px;background:#A6461F;display:grid;place-items:center;color:#FBF7F0;font:500 ${Math.round(size * 0.78)}px/1 B;padding-bottom:${Math.round(size * 0.04)}px}</style><div>Z</div>
-  <script>document.fonts.ready.then(()=>document.body.dataset.ok=1)</script>`);
-  await page.screenshot({ path: join(ROOT, `assets/icone/${nome}`), omitBackground: true });
-  console.log('icona', nome);
-}
+// le icone (favicon e apple-touch) si fanno dal logo: python3 _strumenti/logo.py
 await browser.close();

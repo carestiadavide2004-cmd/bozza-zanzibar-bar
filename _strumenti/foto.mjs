@@ -16,7 +16,7 @@ const OUT = join(ROOT, 'assets/img');
 const SRC = process.argv[2];
 if (!SRC) { console.log('Uso: node _strumenti/foto.mjs <cartella-originali>'); process.exit(1); }
 
-// nome nel sito, file originale (senza .jpg), taglio [x, y, larghezza, altezza] in pixel dell'originale (facoltativo)
+// nome nel sito, file originale (senza .jpg), taglio [x, y, larghezza, altezza] in pixel dell'originale (facoltativo), larghezza massima (facoltativa)
 const T = [
   // HERO: computer (orizzontale) e telefono (verticale)
   ['hero-colazione', '12716046'],
@@ -32,13 +32,17 @@ const T = [
   ['colazione-2', '6205530', [1872, 0, 2995, 3744]],
   ['colazione-3', '19498996', [0, 681, 5464, 6830]],
   ['colazione-4', '30919066', [1372, 0, 3304, 4130]],
-  // PAUSA PRANZO (4:5)
-  ['pranzo-1', '29873027', [1520, 0, 2673, 3341]],
-  ['pranzo-2', '12041931'],
-  ['pranzo-3', '13823542', [589, 0, 2048, 2560]],
-  ['pranzo-4', '33254065', [0, 126, 3024, 3780]],
-  ['pranzo-5', '17615602', [1037, 0, 3110, 3888]],
-  ['pranzo-6', '10821321', [0, 500, 4000, 5000]],
+  // PAUSA PRANZO: piatti più frequenti, quadrati (bastano 640 e 1280: nel sito sono piccoli)
+  ['pranzo-amatriciana', '37180268', [0, 287, 3264, 3264], 1280],
+  ['pranzo-sagne-fagioli', '1527603', [1206, 0, 4823, 4823], 1280],
+  ['pranzo-sagne-ceci', '33597401', [504, 0, 3024, 3024], 1280],
+  ['pranzo-orecchiette', '27850104', [0, 1000, 4000, 4000], 1280],
+  ['pranzo-gnocchi', '14935004', [1001, 346, 2765, 2765], 1280],
+  ['pranzo-pollo', '11414299', [1000, 0, 4000, 4000], 1280],
+  ['pranzo-salsicce', '34329857', [1123, 0, 3456, 3456], 1280],
+  ['pranzo-polpette', '36958915', [0, 504, 3024, 3024], 1280],
+  ['pranzo-hamburger', '3877669', [0, 912, 3648, 3648], 1280],
+  ['pranzo-rolle', '31965032', [1617, 0, 4024, 4024], 1280],
   // APERITIVO: due strisce (formato originale)
   ['aperitivo-1', '39215058'], ['aperitivo-2', '5865336'], ['aperitivo-3', '36468084'], ['aperitivo-4', '29068725'],
   ['aperitivo-5', '36786940'], ['aperitivo-6', '10313343'], ['aperitivo-7', '3794291'], ['aperitivo-8', '5638748'],
@@ -62,12 +66,12 @@ function misure(f) { // dimensioni reali del JPEG (marcatore SOF)
 }
 
 const lavori = [], risultato = {};
-for (const [nome, file, taglio] of T) {
+for (const [nome, file, taglio, massima] of T) {
   const src = join(SRC, file + '.jpg');
   if (!existsSync(src)) { console.log('MANCA', src); continue; }
   const [W, H] = misure(src);
   const [, , cw, ch] = taglio || [0, 0, W, H];
-  const ws = LARGHEZZE.filter(w => w <= cw);
+  const ws = LARGHEZZE.filter(w => w <= cw && w <= (massima || Infinity));
   const max = ws[ws.length - 1];
   risultato[nome] = [max, Math.round(max * ch / cw)];
   for (const w of ws) {

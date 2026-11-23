@@ -79,15 +79,21 @@
   }
   const minuti = s => { const [h, m] = String(s).split(':'); return +h * 60 + +m; };
   const fasce = g => S.orari?.giorni?.[g] || [];
-  const testoFasce = g => (fasce(g).length ? fasce(g).map(([a, b]) => `${a} – ${b}`).join(' · ') : 'Chiuso');
+  const ora = s => String(s).replace(/^0(\d)/, '$1');                       // '06:00' → '6:00'
+  const alle = s => (/^0?(1|8|11):/.test(s) ? `all'${ora(s)}` : `alle ${ora(s)}`); // "all'1:00", "alle 6:00"
+  // una fascia che chiude prima di quando apre (es. 6:00 – 1:00) finisce DOPO MEZZANOTTE, nel giorno dopo
+  const fine = ([a, b]) => (minuti(b) <= minuti(a) ? minuti(b) + 1440 : minuti(b));
+  const testoFasce = g => (fasce(g).length ? fasce(g).map(([a, b]) => `${ora(a)} – ${ora(b)}`).join(' · ') : 'Chiuso');
   function statoAdesso() {
     const { g, min } = oraRoma();
-    for (const [a, b] of fasce(g)) if (min >= minuti(a) && min < minuti(b)) return { aperto: true, testo: `Aperto ora · chiude alle ${b}` };
+    // prima le fasce di ieri che continuano dopo mezzanotte (es. martedì alle 0:30 è ancora lunedì sera)
+    for (const f of fasce((g + 6) % 7)) if (fine(f) > 1440 && min < fine(f) - 1440) return { aperto: true, testo: `Aperto ora · chiude ${alle(f[1])}` };
+    for (const f of fasce(g)) if (min >= minuti(f[0]) && min < fine(f)) return { aperto: true, testo: `Aperto ora · chiude ${alle(f[1])}` };
     for (let k = 0; k < 7; k++) {
       const gg = (g + k) % 7;
       for (const [a] of fasce(gg)) {
         if (k === 0 && minuti(a) <= min) continue;
-        return { aperto: false, testo: `Chiuso · apre ${k === 0 ? 'oggi' : k === 1 ? 'domani' : GIORNI[gg]} alle ${a}` };
+        return { aperto: false, testo: `Chiuso · apre ${k === 0 ? '' : k === 1 ? 'domani ' : GIORNI[gg] + ' '}${alle(a)}` };
       }
     }
     return { aperto: false, testo: 'Chiuso' };
@@ -114,7 +120,7 @@
      ===================================================================== */
   const NOMI_SOCIAL = { instagram: 'Instagram', facebook: 'Facebook', tiktok: 'TikTok' };
   function riempi() {
-    $$('[data-t]').forEach(el => { const v = prendi(el.dataset.t); if (v != null && typeof v !== 'object') el.textContent = v; });
+    $$('[data-t]').forEach(el => { const v = prendi(el.dataset.t); if (v != null && typeof v !== 'object') { el.textContent = v; el.hidden = v === ''; } });
     $$('[data-h]').forEach(el => { const v = prendi(el.dataset.h); if (v != null) el.innerHTML = enfasi(v); });
     $$('[data-indirizzo]').forEach(el => { el.textContent = indirizzo(); });
     $$('[data-anno]').forEach(el => { el.textContent = new Date().getFullYear(); });
@@ -146,6 +152,30 @@
       if (!/^(tel|mail)/.test(t)) { a.target = '_blank'; a.rel = 'noopener'; }
     });
     aggiornaOrari();
+    datiStrutturati();
+  }
+
+  // Dati per Google (schema.org), presi da config.js
+  function datiStrutturati() {
+    if (!$('[data-hero]')) return; // solo nella pagina principale
+    const GG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const ore = [];
+    [1, 2, 3, 4, 5, 6, 0].forEach(d => fasce(d).forEach(([a, b]) => {
+      const uguale = ore.find(o => o.opens === a && o.closes === b);
+      if (uguale) uguale.dayOfWeek.push(GG[d]); else ore.push({ '@type': 'OpeningHoursSpecification', dayOfWeek: [GG[d]], opens: a, closes: b });
+    }));
+    const dati = {
+      '@context': 'https://schema.org', '@type': 'BarOrPub',
+      name: S.nome, description: `${S.sottotitolo || S.tipo} · ${S.posizione || ''}`, url: S.indirizzoSito,
+      image: `${S.indirizzoSito}og.jpg`, logo: `${S.indirizzoSito}assets/logo/logo-completo.png`,
+      telephone: C.telefonoLink,
+      address: { '@type': 'PostalAddress', streetAddress: C.indirizzo, postalCode: C.cap, addressLocality: C.citta, addressRegion: C.provincia, addressCountry: 'IT' },
+      openingHoursSpecification: ore,
+      sameAs: Object.values(S.social || {}).filter(Boolean),
+    };
+    const el = D.createElement('script');
+    el.type = 'application/ld+json'; el.textContent = JSON.stringify(dati);
+    D.head.append(el);
   }
 
   /* =====================================================================
@@ -159,9 +189,13 @@
     if ((el = r('colazione'))) el.innerHTML = (S.foto?.colazione || []).map(f => `
       <li class="mosaico__i"><figure><div class="mosaico__foto">${img(f, { sizes: '(min-width: 900px) 23vw, 46vw', pref: 640 })}</div><figcaption>${esc(f[4] || '')}</figcaption></figure></li>`).join('');
 
-    if ((el = r('pranzo'))) el.innerHTML = (S.foto?.pranzo || []).map(f => `
-      <li class="piatti__i"><figure><div class="piatti__foto">${img(f, { sizes: '(min-width: 1024px) 15vw, 62vw', pref: 640 })}</div>
-      <figcaption><span class="piatti__portata">${esc(f[5] || '')}</span><span class="piatti__nome">${esc(f[4] || '')}</span></figcaption></figure></li>`).join('');
+    // pausa pranzo: primi e secondi, ognuno con la sua foto quadrata (senza foto: un'icona)
+    const piatto = ([nome, foto, alt]) => `
+      <li class="piatti__i"><span class="piatti__foto${foto ? '' : ' piatti__foto--vuota'}">${foto
+        ? img([foto, 1280, 1280, alt], { sizes: '(min-width: 1024px) 112px, 88px', pref: 640 })
+        : '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 15c-9 0-15 5.2-15 13s6 12 15 12 15-4.2 15-12-6-13-15-13Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M24 15c-3.6 0-6 5.6-6 12.5S20.4 40 24 40s6-5.6 6-12.5S27.6 15 24 15Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M24 15c0-3 1-5.6 3.4-7" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>'}</span>
+      <span class="piatti__nome">${esc(nome)}</span></li>`;
+    ['primi', 'secondi'].forEach(k => { if ((el = r(k))) el.innerHTML = (S.pranzo?.[k] || []).map(piatto).join(''); });
 
     if ((el = r('titolo-aperitivo'))) {
       const righe = [].concat(T.aperitivo?.titolo || []);
@@ -274,12 +308,10 @@
     const nome = $('[data-nome]', el);
     const attiva = $(`[data-parola="${H.dataset.momento}"]`, el);
     const parti = () => {
-      const lettere = SplitText ? new SplitText(nome, { type: 'chars' }).chars : [nome];
       gsap.timeline({ defaults: { ease: 'power4.out' }, onComplete: avviaCicloHero })
         .fromTo('[data-hero-foto]', { scale: 1.08 }, { scale: 1, duration: 1.6, ease: 'power3.out', clearProps: 'transform' }, 0)
-        .set(nome, { visibility: 'visible', clipPath: 'inset(-40% -8% 0% -8%)' }, 0)
-        .fromTo(lettere, { yPercent: 108 }, { yPercent: 0, duration: 0.95, stagger: 0.045 }, 0.1)
-        .set(nome, { clearProps: 'clipPath' })
+        .set(nome, { visibility: 'visible' }, 0)
+        .fromTo(nome, { clipPath: 'inset(0% 0% 100% 0%)', y: 24 }, { clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 1.25, ease: 'power3.inOut', clearProps: 'clipPath,transform' }, 0.1)
         .set('.hero__parola', { opacity: 1 }, 0.5)
         .fromTo(attiva, { yPercent: 110 }, { yPercent: 0, duration: 0.85, clearProps: 'transform' }, 0.5)
         .fromTo('[data-entra]', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.75, stagger: 0.07, clearProps: 'transform' }, 0.62)
@@ -289,10 +321,10 @@
         .set('.hero__icone', { opacity: 1 }, 1.05);
     };
     // parte quando la foto del momento e i font sono pronti (al massimo dopo 1,3 s)
-    const foto = $(`.hero__slide[data-slide="${H.dataset.momento}"] img`, el);
-    const immagine = foto && !foto.complete
-      ? new Promise(r => { foto.addEventListener('load', r, { once: true }); foto.addEventListener('error', r, { once: true }); })
-      : Promise.resolve();
+    const pronta = im => (im && !im.complete
+      ? new Promise(r => { im.addEventListener('load', r, { once: true }); im.addEventListener('error', r, { once: true }); })
+      : Promise.resolve());
+    const immagine = Promise.all([pronta($(`.hero__slide[data-slide="${H.dataset.momento}"] img`, el)), pronta($('img', nome))]);
     let fatto = false;
     const via = () => { if (!fatto) { fatto = true; parti(); } };
     Promise.all([D.fonts ? D.fonts.ready : null, immagine]).then(via, via);

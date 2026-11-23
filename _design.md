@@ -12,7 +12,11 @@ Dettagli completi in `DIREZIONE.md`. Dati e testi in `config.js`.
 
 ## Palette
 Mattino `#FAF2E4→#F3E3CC` · Mezzogiorno `#FFFBF1→#F8EDD3` · Sera oro `#EBBE76→#DD9A5C` · Notte `#16223A→#0D0B0A`
-Inchiostro `#15120F` · Avorio `#F6F1E8` · Caffè `#62544A` · Terracotta `#A6461F` · Oro `#E8BD6E`
+Inchiostro `#15120F` · Avorio `#F6F1E8` · Caffè `#62544A` · Oro `#E8BD6E`
+**Rosso del logo** `#C7472E` (accento, con parsimonia: linee, punti, pulsanti secondari con testo bianco) · per il testo piccolo sui chiari `#B03D28`
+
+## Logo
+Logo vero del cliente (rombo con la donna che beve il caffè + ZANZIBAR + Coffee & Lounge Bar), usato come immagine, mai ridisegnato. Completo nella hero e nel footer, orizzontale nel menu (chiaro sulla foto, scuro sulla barra chiara), rombo per le favicon.
 
 ## Firma visiva
 Sfondo a tre strati che segue la giornata + parola del momento che sale dietro una maschera + due strisce di foto.
@@ -22,5 +26,5 @@ Livello alto, GSAP/ScrollTrigger/SplitText locali. Solo transform, opacity, clip
 
 ## Regole da non violare
 - Nessuna richiesta esterna al caricamento; Maps solo al clic; nessun credito dell'autore.
-- Niente prezzi, niente piatti presentati come veri ("Proposta di esempio").
+- Niente prezzi. I piatti del pranzo sono quelli veri del cliente; le foto sono indicative.
 - Strisce che non si fermano al passaggio del mouse.

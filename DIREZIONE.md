@@ -68,9 +68,9 @@ Tono comune: luce naturale calda, colori caldi e coerenti, cibo e bevande **ital
   - `hero-aperitivo`: spritz e tagliere al tramonto, luce dorata.
 - **Il bar** `bar-1`: banco di un bar italiano con macchina dell'espresso o barista al lavoro (foto grande, verticale 4:5).
 - **Colazione** `colazione-1…4`: espresso che scende, cappuccino con la schiuma, cornetti, dolci da banco.
-- **Pausa pranzo** `pranzo-1…6`: tre primi (pasta al pomodoro, al ragù o al forno) e tre secondi (polpette al sugo, arrosto o pollo con patate, verdure o tagliata).
+- **Pausa pranzo** `pranzo-<piatto>`: i piatti più frequenti del cliente, foto quadrate piccole in una lista Primi / Secondi (vedi credits.md).
 - **Aperitivo** `aperitivo-1…14` (due strisce): spritz, negroni o cocktail, barista che versa, calici di bollicine e brindisi, taglieri di salumi e formaggi, olive, bruschette e crostini, stuzzichini, tavolino all'aperto al tramonto.
-- **Catering & Eventi** `catering-1`: tavola apparecchiata o buffet elegante, in tono con il sito del catering.
+- **Zeta Catering** `catering-1`: tavola apparecchiata o buffet elegante, in tono con il sito del catering.
 - **Reel** `reel-1…5` (video verticali 1080×1920 → versione leggera 720×1280 sotto 1,5 MB): espresso che scende, latte art sul cappuccino, cornetti, pasta impiattata o fumante, spritz versato, brindisi o tagliere.
 - **Anteprima social** `og.jpg` 1200×630: foto della hero con il nome.
 

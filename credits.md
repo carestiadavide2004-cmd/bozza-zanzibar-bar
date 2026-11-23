@@ -21,13 +21,18 @@ Gli originali si rigenerano con `node _strumenti/foto.mjs <cartella>` e `node _s
 - colazione-3: cornetti in vetrina — https://www.pexels.com/photo/19498996/
 - colazione-4: cornetti al cioccolato e pistacchio — https://www.pexels.com/photo/30919066/
 
-## Pausa pranzo
-- pranzo-1: rigatoni, pomodorini e ricotta — https://www.pexels.com/photo/29873027/
-- pranzo-2: gnocchi alla sorrentina — https://www.pexels.com/photo/12041931/
-- pranzo-3: lasagna al forno — https://www.pexels.com/photo/13823542/
-- pranzo-4: polpette al sugo — https://www.pexels.com/photo/33254065/
-- pranzo-5: tagliata con verdure grigliate — https://www.pexels.com/photo/17615602/
-- pranzo-6: pollo arrosto con fagiolini e patate — https://www.pexels.com/photo/10821321/
+## Pausa pranzo (piatti più frequenti, foto quadrate)
+- pranzo-amatriciana: rigatoni all'amatriciana con pecorino — https://www.pexels.com/photo/37180268/
+- Zucca, speck e gorgonzola: nessuna foto credibile trovata, per ora un'icona
+- pranzo-sagne-fagioli: pasta fresca con fagioli e pomodoro — https://www.pexels.com/photo/1527603/
+- pranzo-sagne-ceci: pasta e ceci in brodo — https://www.pexels.com/photo/33597401/
+- pranzo-orecchiette: pasta con cime di rapa e peperoncino (sono conchiglie, non orecchiette: da sostituire appena possibile) — https://www.pexels.com/photo/27850104/
+- pranzo-gnocchi: gnocchi al pomodoro — https://www.pexels.com/photo/14935004/
+- pranzo-pollo: pollo arrosto — https://www.pexels.com/photo/11414299/
+- pranzo-salsicce: salsicce alla brace — https://www.pexels.com/photo/34329857/
+- pranzo-polpette: polpette al sugo — https://www.pexels.com/photo/36958915/
+- pranzo-hamburger: hamburger di carne alla piastra — https://www.pexels.com/photo/3877669/
+- pranzo-rolle: rollè ripieno a fette (pollo, simile al tacchino) — https://www.pexels.com/photo/31965032/
 
 ## Aperitivi e taglieri (due strisce)
 - aperitivo-1: spritz al tramonto — https://www.pexels.com/photo/39215058/
@@ -55,5 +60,6 @@ Gli originali si rigenerano con `node _strumenti/foto.mjs <cartella>` e `node _s
 - reel-4: spaghetti al pomodoro — https://www.pexels.com/video/36391232/
 - reel-5: calici e bollicine — https://www.pexels.com/video/7608898/
 
-## Anteprima social e icone
-- og.jpg: creata da hero-colazione con `node _strumenti/og.mjs`
+## Logo, anteprima social e icone
+- Logo del cliente: originale in `_strumenti/logo-originale.jpeg` (1600x930, sfondo nero). Versioni trasparenti in `assets/logo/` e icone in `assets/icone/` + `favicon.ico`, fatte con `python3 _strumenti/logo.py _strumenti/logo-originale.jpeg <cartella>` (servono Pillow e numpy).
+- og.jpg: logo su hero-aperitivo, con `node _strumenti/og.mjs`

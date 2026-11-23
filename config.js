@@ -8,6 +8,7 @@
 window.SITO = {
   nome: 'Zanzibar',
   tipo: 'Bar',
+  sottotitolo: 'Coffee & Lounge Bar',   // la riga sotto il nome nel logo
   posizione: "Di fronte alla stazione di Torre de' Passeri",
   indirizzoSito: 'https://carestiadavide2004-cmd.github.io/bozza-zanzibar-bar/',
 
@@ -18,16 +19,16 @@ window.SITO = {
   },
 
   contatti: {
-    telefono: '+39 000 000 0000',          // DA CONFERMARE (come si legge)
-    telefonoLink: '+390000000000',          // DA CONFERMARE (stesso numero, senza spazi)
-    whatsapp: '390000000000',               // DA CONFERMARE (solo cifre, con 39 davanti)
+    telefono: '+39 392 285 0875',          // come si legge
+    telefonoLink: '+393922850875',          // stesso numero, senza spazi
+    whatsapp: '393922850875',               // solo cifre, con 39 davanti
     email: 'email@esempio.it',              // DA CONFERMARE
-    indirizzo: 'Via Esempio 1',             // DA CONFERMARE
-    cap: '65029',
+    indirizzo: 'Viale della Repubblica 72 bis',
+    cap: '65029',                           // VERIFICARE CAP
     citta: "Torre de' Passeri",
     provincia: 'PE',
-    // ricerca usata per mappa e indicazioni: quando c'è l'indirizzo esatto, mettere quello
-    mappa: "Stazione di Torre de' Passeri, 65029 Torre de' Passeri PE", // DA CONFERMARE
+    // ricerca usata per mappa, "Apri in Google Maps" e "Indicazioni"
+    mappa: "Viale della Repubblica 72 bis, 65029 Torre de' Passeri PE",
   },
 
   // Messaggi già scritti per WhatsApp
@@ -37,17 +38,18 @@ window.SITO = {
   },
 
   // Orari: 0 = domenica, 1 = lunedì … 6 = sabato. Più fasce: [['06:00','13:00'], ['16:00','21:00']]. Giorno chiuso: []
+  // Se la chiusura è più piccola dell'apertura (es. '01:00') vuol dire DOPO MEZZANOTTE, cioè il giorno dopo.
   orari: {
-    giorni: {                                // DA CONFERMARE (tutti gli orari)
-      1: [['06:00', '21:00']],
-      2: [['06:00', '21:00']],
-      3: [['06:00', '21:00']],
-      4: [['06:00', '21:00']],
-      5: [['06:00', '21:00']],
-      6: [['06:30', '21:00']],
-      0: [['07:00', '13:00']],
+    giorni: {
+      1: [['06:00', '01:00']],
+      2: [['06:00', '01:00']],
+      3: [['06:00', '01:00']],
+      4: [['06:00', '01:00']],
+      5: [['06:00', '01:00']],
+      6: [['06:00', '01:00']],
+      0: [['07:00', '01:00']],
     },
-    nota: 'Orari di esempio, da confermare.', // DA CONFERMARE
+    nota: '',  // una riga sotto la tabella (vuota = non compare)
   },
   // Da che ora la hero mostra colazione, pranzo e aperitivo (ora italiana)
   momenti: { colazione: '05:00', pranzo: '11:00', aperitivo: '15:30' },
@@ -67,11 +69,24 @@ window.SITO = {
     aggiornamentoPrivacy: '21 novembre 2026',
   },
 
-  // Il piatto del giorno: si cambia ogni mattina, solo qui
-  piattoDelGiorno: {
-    nome: 'Gnocchi alla sorrentina',                    // TESTO DI ESEMPIO DA CONFERMARE
-    descrizione: 'Pomodoro, mozzarella filante e basilico.', // TESTO DI ESEMPIO DA CONFERMARE
-    nota: 'Proposta di esempio',
+  // Pausa pranzo: i piatti che si preparano più spesso. [nome, foto in assets/img (vuoto = icona), descrizione della foto]
+  // Foto quadrate (Pexels, provvisorie): assets/img/<foto>-640.webp e -1280.webp
+  pranzo: {
+    primi: [
+      ['Amatriciana', 'pranzo-amatriciana', "Rigatoni all'amatriciana con pecorino grattugiato"],
+      ['Zucca, speck e gorgonzola', '', ''],   // nessuna foto credibile trovata: per ora un'icona
+      ['Sagne e fagioli', 'pranzo-sagne-fagioli', 'Pasta fresca con fagioli e pomodoro'],
+      ['Sagne e ceci', 'pranzo-sagne-ceci', 'Pasta e ceci in brodo, servita nel piatto fondo'],
+      ['Orecchiette alle cime di rapa', 'pranzo-orecchiette', 'Pasta con cime di rapa e peperoncino'],
+      ['Gnocchi al pomodoro', 'pranzo-gnocchi', 'Gnocchi al sugo di pomodoro con formaggio grattugiato'],
+    ],
+    secondi: [
+      ['Pollo arrosto', 'pranzo-pollo', 'Pollo arrosto dorato sul tagliere'],
+      ['Salsicce', 'pranzo-salsicce', 'Salsicce alla brace'],
+      ['Polpette', 'pranzo-polpette', 'Polpette al sugo in una ciotola'],
+      ['Hamburger', 'pranzo-hamburger', 'Hamburger di carne cotti alla piastra'],
+      ['Rollè di tacchino', 'pranzo-rolle', 'Fette di rollè ripieno con purè'],
+    ],
   },
 
   testi: {
@@ -81,9 +96,9 @@ window.SITO = {
     },
     bar: { // TESTO DI ESEMPIO DA CONFERMARE
       etichetta: 'Il bar',
-      titolo: 'Tre momenti, *un solo* bancone',
-      testo: "Da Zanzibar la giornata comincia presto: il primo caffè per chi prende il treno, il pranzo per chi lavora qui intorno, l'aperitivo per chi torna a casa. Un bar di paese, tenuto con cura.",
-      momenti: ['Colazione al banco', 'Pausa pranzo', 'Aperitivo e taglieri'],
+      titolo: 'Dalla colazione all’*aperitivo cenato*, un solo bancone',
+      testo: "Da Zanzibar la giornata comincia presto, con il primo caffè per chi prende il treno, e continua con il pranzo per chi lavora qui intorno. La sera arrivano l’aperitivo cenato, i cocktail e le serate con gli amici.",
+      momenti: ['Colazione al banco', 'Pausa pranzo', 'Aperitivi e aperitivi cenati', 'Cocktail bar', 'Serate ed eventi'],
     },
     colazione: { // TESTO DI ESEMPIO DA CONFERMARE
       parola: 'Colazione',
@@ -94,9 +109,11 @@ window.SITO = {
       parola: 'Pausa pranzo',
       titolo: 'Un piatto caldo, *a due passi* dal treno',
       testo: 'Per chi lavora in zona e per chi passa dalla stazione: primi e secondi del giorno, serviti senza perdere tempo. Prenota il tavolo con un messaggio.',
-      piattoEtichetta: 'Il piatto del giorno',
+      nota: 'Il menù del pranzo cambia ogni giorno: questi sono i piatti che prepariamo più spesso. La disponibilità varia in base al giorno: chiedi al banco o scrivici su WhatsApp.',
+      primi: 'Primi',
+      secondi: 'Secondi',
+      fotoNota: 'Foto indicative',
       bottone: 'Prenota il pranzo su WhatsApp',
-      galleria: 'Proposte di esempio',
     },
     aperitivo: { // TESTO DI ESEMPIO DA CONFERMARE
       parola: 'Aperitivo',
@@ -117,10 +134,10 @@ window.SITO = {
       nota: 'Video di esempio: qui andranno i video del bar.',
     },
     catering: { // TESTO DI ESEMPIO DA CONFERMARE
-      etichetta: 'Catering & Eventi',
+      nome: 'Zeta Catering',
       titolo: 'La stessa cucina, *per la tua festa*',
-      testo: 'Matrimoni, comunioni, compleanni e aperitivi aziendali: con il catering Zanzibar porta la sua cucina anche fuori dal bar.',
-      bottone: 'Scopri il catering',
+      testo: 'Matrimoni, comunioni, compleanni e aperitivi aziendali: con Zeta Catering la nostra cucina arriva anche fuori dal bar.',
+      bottone: 'Scopri Zeta Catering',
     },
     recensioni: {
       titolo: 'Recensioni di esempio',
@@ -147,14 +164,6 @@ window.SITO = {
       ['colazione-2', 2560, 3200, 'Cappuccino servito al banco', 'Cappuccino'],
       ['colazione-3', 2560, 3200, 'Cornetti nella vetrina del bar', 'Cornetti'],
       ['colazione-4', 2560, 3200, 'Cornetti con cioccolato e pistacchio', 'Dolci da banco'],
-    ],
-    pranzo: [ // [nome, larghezza, altezza, descrizione, piatto, portata] — TESTO DI ESEMPIO DA CONFERMARE
-      ['pranzo-1', 2560, 3200, 'Rigatoni con pomodorini e ricotta in padella', 'Rigatoni, pomodorini e ricotta', 'Primo'],
-      ['pranzo-2', 2560, 3199, 'Gnocchi alla sorrentina in una ciotola di legno', 'Gnocchi alla sorrentina', 'Primo'],
-      ['pranzo-3', 1920, 2400, 'Una porzione di lasagna al forno', 'Lasagna al forno', 'Primo'],
-      ['pranzo-4', 2560, 3200, 'Polpette al sugo con pane tostato', 'Polpette al sugo', 'Secondo'],
-      ['pranzo-5', 2560, 3200, 'Tagliata con verdure grigliate e rucola', 'Tagliata e verdure grigliate', 'Secondo'],
-      ['pranzo-6', 2560, 3200, 'Pollo arrosto con fagiolini e patate', 'Pollo, fagiolini e patate', 'Secondo'],
     ],
     aperitivo: [ // le prime 7 nella striscia in alto, le altre in quella in basso
       ['aperitivo-1', 2560, 3840, 'Spritz al tramonto sul muretto, con le patatine'],
