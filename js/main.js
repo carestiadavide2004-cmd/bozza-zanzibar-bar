@@ -119,8 +119,13 @@
      1. TESTI E DATI DA config.js
      ===================================================================== */
   const NOMI_SOCIAL = { instagram: 'Instagram', facebook: 'Facebook', tiktok: 'TikTok' };
+  // Un dato è "compilato" se non è vuoto e non è un segnaposto (esempio, Nome attività, tutti zeri)
+  const compilato = v => typeof v === 'string' && v.trim() !== '' && !/esempio|nome attivit|segnaposto|^0+$/i.test(v.trim());
   function riempi() {
-    $$('[data-t]').forEach(el => { const v = prendi(el.dataset.t); if (v != null && typeof v !== 'object') { el.textContent = v; el.hidden = v === ''; } });
+    // righe che compaiono solo se il dato in config.js è compilato (dati legali, email)
+    $$('[data-se]').forEach(el => { el.hidden = !compilato(prendi(el.dataset.se)); });
+    $$('[data-legale]').forEach(el => { el.hidden = !el.querySelector('[data-se]:not([hidden])'); });
+    $$('[data-t]').forEach(el => { const v = prendi(el.dataset.t); if (v != null && typeof v !== 'object') { if (el.closest('[data-se]') && !compilato(v)) return; el.textContent = v; el.hidden = v === ''; } });
     $$('[data-h]').forEach(el => { const v = prendi(el.dataset.h); if (v != null) el.innerHTML = enfasi(v); });
     $$('[data-indirizzo]').forEach(el => { el.textContent = indirizzo(); });
     $$('[data-anno]').forEach(el => { el.textContent = new Date().getFullYear(); });
@@ -152,30 +157,6 @@
       if (!/^(tel|mail)/.test(t)) { a.target = '_blank'; a.rel = 'noopener'; }
     });
     aggiornaOrari();
-    datiStrutturati();
-  }
-
-  // Dati per Google (schema.org), presi da config.js
-  function datiStrutturati() {
-    if (!$('[data-hero]')) return; // solo nella pagina principale
-    const GG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const ore = [];
-    [1, 2, 3, 4, 5, 6, 0].forEach(d => fasce(d).forEach(([a, b]) => {
-      const uguale = ore.find(o => o.opens === a && o.closes === b);
-      if (uguale) uguale.dayOfWeek.push(GG[d]); else ore.push({ '@type': 'OpeningHoursSpecification', dayOfWeek: [GG[d]], opens: a, closes: b });
-    }));
-    const dati = {
-      '@context': 'https://schema.org', '@type': 'BarOrPub',
-      name: S.nome, description: `${S.sottotitolo || S.tipo} · ${S.posizione || ''}`, url: S.indirizzoSito,
-      image: `${S.indirizzoSito}og.jpg`, logo: `${S.indirizzoSito}assets/logo/logo-completo.png`,
-      telephone: C.telefonoLink,
-      address: { '@type': 'PostalAddress', streetAddress: C.indirizzo, postalCode: C.cap, addressLocality: C.citta, addressRegion: C.provincia, addressCountry: 'IT' },
-      openingHoursSpecification: ore,
-      sameAs: Object.values(S.social || {}).filter(Boolean),
-    };
-    const el = D.createElement('script');
-    el.type = 'application/ld+json'; el.textContent = JSON.stringify(dati);
-    D.head.append(el);
   }
 
   /* =====================================================================

@@ -1,6 +1,6 @@
 # Direzione artistica — Zanzibar · Bar
 
-Bozza per un cliente vero: il bar di Torre de' Passeri (PE), di fronte alla stazione dei treni.
+Sito definitivo (https://zanzibartorre.com) per un cliente vero: il bar di Torre de' Passeri (PE), di fronte alla stazione dei treni.
 Sito separato dal menù digitale (QR) e dal sito del catering, ma della **stessa famiglia**.
 
 ## L'idea: "La giornata di Zanzibar"

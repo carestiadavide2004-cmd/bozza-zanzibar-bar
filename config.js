@@ -10,19 +10,19 @@ window.SITO = {
   tipo: 'Bar',
   sottotitolo: 'Coffee & Lounge Bar',   // la riga sotto il nome nel logo
   posizione: "Di fronte alla stazione di Torre de' Passeri",
-  indirizzoSito: 'https://carestiadavide2004-cmd.github.io/bozza-zanzibar-bar/',
+  indirizzoSito: 'https://zanzibartorre.com/',
 
   // Gli altri due siti della famiglia Zanzibar
   link: {
-    menu: 'https://carestiadavide2004-cmd.github.io/zanzibar/',                      // menù digitale (QR ai tavoli)
-    catering: 'https://carestiadavide2004-cmd.github.io/bozza-zanzibar-catering/',   // sito del catering
+    menu: 'https://menu.zanzibartorre.com',   // menù digitale (QR ai tavoli)
+    catering: 'https://zetacatering.com',     // sito del catering
   },
 
   contatti: {
     telefono: '+39 392 285 0875',          // come si legge
     telefonoLink: '+393922850875',          // stesso numero, senza spazi
     whatsapp: '393922850875',               // solo cifre, con 39 davanti
-    email: 'email@esempio.it',              // DA CONFERMARE
+    email: 'email@esempio.it',              // DA CONFERMARE (finché è un segnaposto non compare sul sito)
     indirizzo: 'Viale della Repubblica 72 bis',
     cap: '65029',                           // VERIFICARE CAP
     citta: "Torre de' Passeri",
@@ -60,13 +60,14 @@ window.SITO = {
     facebook: 'https://www.facebook.com/zanzibarpub/',
   },
 
-  // Dati legali (footer e privacy)
+  // Dati legali (footer e privacy). Finché sono segnaposto ("esempio", "Nome attività", zeri) NON compaiono sul sito:
+  // basta scrivere quelli veri qui e le righe appaiono da sole.
   legale: {
     ragioneSociale: 'Nome attività S.r.l.',                          // DA CONFERMARE
     piva: '00000000000',                                             // DA CONFERMARE
     sedeLegale: "Via Esempio 1, 65029 Torre de' Passeri (PE)",       // DA CONFERMARE
     emailPrivacy: 'privacy@esempio.it',                              // DA CONFERMARE
-    aggiornamentoPrivacy: '21 novembre 2026',
+    aggiornamentoPrivacy: '24 novembre 2026',
   },
 
   // Pausa pranzo: i piatti che si preparano più spesso. [nome, foto in assets/img (vuoto = icona), descrizione della foto]
@@ -131,7 +132,7 @@ window.SITO = {
       etichetta: 'Sui social',
       titolo: 'Seguici: ogni giorno *qualcosa di nuovo*',
       testo: "Il piatto del giorno, i dolci appena sfornati, l'aperitivo della sera: lo raccontiamo ogni giorno.",
-      nota: 'Video di esempio: qui andranno i video del bar.',
+      nota: '',   // vuota = non compare
     },
     catering: { // TESTO DI ESEMPIO DA CONFERMARE
       nome: 'Zeta Catering',
@@ -139,7 +140,7 @@ window.SITO = {
       testo: 'Matrimoni, comunioni, compleanni e aperitivi aziendali: con Zeta Catering la nostra cucina arriva anche fuori dal bar.',
       bottone: 'Scopri Zeta Catering',
     },
-    recensioni: {
+    recensioni: { // sezione NASCOSTA in index.html (attributo hidden) finché non ci sono recensioni vere
       titolo: 'Recensioni di esempio',
       nota: 'Testi di esempio: qui andranno le recensioni vere.',
     },

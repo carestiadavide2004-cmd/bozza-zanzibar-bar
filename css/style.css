@@ -734,3 +734,6 @@ html[data-momento="aperitivo"] [data-parola="aperitivo"] { transform: translate3
 }
 
 @keyframes dissolvi { from { opacity: 0; } to { opacity: 1; } }
+
+/* Riga legale del footer: separatori solo tra le parti compilate */
+[data-legale] > span:not([hidden]) ~ span:not([hidden])::before { content: " – "; }

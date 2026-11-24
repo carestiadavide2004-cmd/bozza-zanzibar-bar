@@ -1,6 +1,6 @@
 # Design — Zanzibar · Bar
 
-**Tipo:** bar (colazioni, pranzi, aperitivi) · **Zona:** Torre de' Passeri (PE), di fronte alla stazione · **Stato:** bozza per cliente reale (noindex)
+**Tipo:** bar (colazioni, pranzi, aperitivi) · **Zona:** Torre de' Passeri (PE), di fronte alla stazione · **Stato:** sito definitivo online su https://zanzibartorre.com (dal 24/11/2026)
 Dettagli completi in `DIREZIONE.md`. Dati e testi in `config.js`.
 
 ## Direzione

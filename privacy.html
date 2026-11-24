@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Privacy | Zanzibar · Bar</title>
 <meta name="description" content="Informativa privacy e cookie del sito di Zanzibar: titolare, dati raccolti, servizi esterni e diritti.">
-<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://zanzibartorre.com/privacy.html">
 <meta name="theme-color" content="#15120F">
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" href="assets/icone/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/icone/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.css?v=20261123">
-<script src="config.js?v=20261123"></script>
+<link rel="stylesheet" href="css/style.css?v=20261124">
+<script src="config.js?v=20261124"></script>
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body class="pagina-semplice">
@@ -32,10 +32,11 @@
 
       <h2>Chi è il titolare del trattamento</h2>
       <p>Il titolare è chi decide come e perché vengono usati i dati:</p>
-      <p><strong data-t="legale.ragioneSociale">Nome attività S.r.l.</strong> (Zanzibar)<br>
-      P.IVA <span data-t="legale.piva">00000000000</span><br>
-      Sede legale: <span data-t="legale.sedeLegale">Via Esempio 1, 65029 Torre de' Passeri (PE)</span><br>
-      Email <a href="mailto:privacy@esempio.it" data-link="mail-privacy" data-t="legale.emailPrivacy">privacy@esempio.it</a><br>
+      <p><strong>Zanzibar · Coffee &amp; Lounge Bar</strong><span data-se="legale.ragioneSociale" hidden> (<span data-t="legale.ragioneSociale"></span>)</span><br>
+      <span data-se="legale.piva" hidden>P.IVA <span data-t="legale.piva"></span><br></span>
+      <span data-se="legale.sedeLegale" hidden>Sede legale: <span data-t="legale.sedeLegale"></span><br></span>
+      Sede del bar: <span data-indirizzo>Viale della Repubblica 72 bis, 65029 Torre de' Passeri (PE)</span><br>
+      <span data-se="legale.emailPrivacy" hidden>Email <a href="mailto:" data-link="mail-privacy" data-t="legale.emailPrivacy"></a><br></span>
       Telefono <a href="tel:+393922850875" data-link="tel" data-t="contatti.telefono">+39 392 285 0875</a></p>
 
       <h2>Quali dati raccogliamo</h2>
@@ -88,13 +89,13 @@
         <li><strong>limitarne</strong> l'uso o <strong>opporvi</strong> al trattamento, in particolare quando si basa sul nostro legittimo interesse;</li>
         <li>riceverli in un formato di uso comune (<strong>portabilità</strong>).</li>
       </ul>
-      <p><strong>Come fare:</strong> scrivete a <a href="mailto:privacy@esempio.it" data-link="mail-privacy" data-t="legale.emailPrivacy">privacy@esempio.it</a> o chiamate il <a href="tel:+393922850875" data-link="tel" data-t="contatti.telefono">+39 392 285 0875</a>. Vi risponderemo entro un mese.</p>
+      <p><strong>Come fare:</strong> <span data-se="legale.emailPrivacy" hidden>scrivete a <a href="mailto:" data-link="mail-privacy" data-t="legale.emailPrivacy"></a> o </span>chiamate il <a href="tel:+393922850875" data-link="tel" data-t="contatti.telefono">+39 392 285 0875</a>. Vi risponderemo entro un mese.</p>
       <p>Se ritenete che i vostri dati siano trattati in modo non corretto, potete presentare <strong>reclamo al Garante per la protezione dei dati personali</strong> (<a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">garanteprivacy.it</a>).</p>
 
       <h2>Modifiche a questa informativa</h2>
       <p>Possiamo aggiornare questa informativa, per esempio se aggiungiamo un servizio al sito o se cambia la normativa. La versione valida è sempre quella pubblicata in questa pagina, con la data di ultimo aggiornamento qui sotto.</p>
 
-      <p class="aggiornato"><strong>Ultimo aggiornamento:</strong> <span data-t="legale.aggiornamentoPrivacy">21 novembre 2026</span></p>
+      <p class="aggiornato"><strong>Ultimo aggiornamento:</strong> <span data-t="legale.aggiornamentoPrivacy">24 novembre 2026</span></p>
       <p style="margin-top:36px"><a class="btn" href="./">Torna al sito</a></p>
     </article>
   </div>
@@ -102,11 +103,11 @@
 
 <footer class="pie">
   <div class="wrap pie__legale">
-    <p><span data-t="legale.ragioneSociale">Nome attività S.r.l.</span> – P.IVA <span data-t="legale.piva">00000000000</span> – <span data-t="legale.sedeLegale">Via Esempio 1, 65029 Torre de' Passeri (PE)</span></p>
+    <p data-legale hidden><span data-se="legale.ragioneSociale" hidden><span data-t="legale.ragioneSociale"></span></span><span data-se="legale.piva" hidden>P.IVA <span data-t="legale.piva"></span></span><span data-se="legale.sedeLegale" hidden><span data-t="legale.sedeLegale"></span></span></p>
     <p><a href="./">Zanzibar</a> · <a href="privacy.html" aria-current="page">Privacy</a></p>
   </div>
 </footer>
 
-<script src="js/main.js?v=20261123" defer></script>
+<script src="js/main.js?v=20261124" defer></script>
 </body>
 </html>
